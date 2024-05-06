@@ -29,6 +29,17 @@ class ProductListViewModel @Inject constructor(private val getProductsUseCase: G
                 is UiEvent.OnProductClicked -> {
                     // Navigate to details screen
                 }
+
+                is UiEvent.OnSearchTextChange -> {
+                    val filteredProducts = cachedProducts.filter {
+                        it.description.contains(event.searchQuery, ignoreCase = true)
+                    }
+                    if (filteredProducts.isEmpty()) {
+                        _state.value = ProductListState.EmptySearch
+                    } else {
+                        _state.value = ProductListState.Success(filteredProducts)
+                    }
+                }
             }
         }
     }
@@ -54,8 +65,13 @@ sealed class ProductListState {
     data object Loading : ProductListState()
     data class Success(val products: List<Product>) : ProductListState()
     data class Error(val message: String) : ProductListState()
+    data object EmptySearch : ProductListState()
 }
 
 sealed interface UiEvent {
+    data class OnSearchTextChange(val searchQuery: String) : UiEvent {
+
+    }
+
     data class OnProductClicked(val product: Product) : UiEvent
 }
