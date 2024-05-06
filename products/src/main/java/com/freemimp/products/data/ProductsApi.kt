@@ -1,4 +1,4 @@
-package com.freemimp.products.domain
+package com.freemimp.products.data
 
 import com.freemimp.products.domain.model.Product
 

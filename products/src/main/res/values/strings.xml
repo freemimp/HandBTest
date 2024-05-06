@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="products_app_bar_title">Products</string>
+    <string name="back_button_content_description">Back button</string>
+    <string name="search_icon_content_description">Search icon</string>
+    <string name="description_label">DESCRIPTION</string>
+    <string name="name_label">NAME</string>
+    <string name="sku_label">SKU</string>
+    <string name="brand_label">BRAND</string>
+    <string name="price_label">PRICE</string>
+    <string name="nothing_found_please_try_with_a_different_search_query">Nothing found, please try with a different search query</string>
+</resources>

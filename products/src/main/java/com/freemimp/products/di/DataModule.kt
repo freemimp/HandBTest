@@ -1,7 +1,7 @@
 package com.freemimp.products.di
 
 import com.freemimp.products.data.RetrofitProductsApi
-import com.freemimp.products.domain.ProductsApi
+import com.freemimp.products.data.ProductsApi
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

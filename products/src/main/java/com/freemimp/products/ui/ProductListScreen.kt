@@ -36,10 +36,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.core.text.HtmlCompat
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.freemimp.products.R
 import com.freemimp.products.domain.model.Product
 
 @Composable
@@ -64,7 +66,7 @@ fun ProductListContent(
                 .fillMaxSize()
         ) {
             val context = LocalContext.current as Activity
-            TopAppBar(title = { Text(text = "Products") },
+            TopAppBar(title = { Text(text = stringResource(R.string.products_app_bar_title)) },
                 modifier = Modifier
                     .fillMaxWidth()
                     .align(Alignment.CenterHorizontally),
@@ -75,7 +77,7 @@ fun ProductListContent(
                     ) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                            contentDescription = "Back button"
+                            contentDescription = stringResource(R.string.back_button_content_description)
                         )
                     }
                 })
@@ -106,7 +108,7 @@ private fun TopSearchSection(uiEvent: (UiEvent) -> Unit) {
         leadingIcon = {
             Icon(
                 imageVector = Icons.Rounded.Search,
-                contentDescription = "Search icon"
+                contentDescription = stringResource(R.string.search_icon_content_description)
             )
         },
         value = text,
@@ -159,7 +161,7 @@ private fun ItemDescriptionSection(
 ) {
     var isTextExpanded by remember { mutableStateOf(false) }
     Text(
-        text = "DESCRIPTION",
+        text = stringResource(R.string.description_label),
         style = MaterialTheme.typography.titleMedium
     )
     Text(
@@ -180,7 +182,7 @@ private fun ItemDescriptionSection(
 @Composable
 private fun ItemNameSection(product: Product) {
     Text(
-        text = "NAME",
+        text = stringResource(R.string.name_label),
         style = MaterialTheme.typography.titleMedium
     )
     Text(
@@ -219,17 +221,17 @@ private fun ItemSkuBrandPriceHeaderSection() {
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
         Text(
-            text = "SKU",
+            text = stringResource(R.string.sku_label),
             style = MaterialTheme.typography.titleMedium
         )
         Spacer(modifier = Modifier.width(16.dp))
         Text(
-            text = "BRAND",
+            text = stringResource(R.string.brand_label),
             style = MaterialTheme.typography.titleMedium
         )
         Spacer(modifier = Modifier.width(16.dp))
         Text(
-            text = "PRICE",
+            text = stringResource(R.string.price_label),
             style = MaterialTheme.typography.titleMedium
         )
     }
@@ -268,7 +270,7 @@ fun EmptySearchSection(modifier: Modifier) {
         horizontalArrangement = Arrangement.Center,
         verticalAlignment = Alignment.CenterVertically
     ) {
-        Text(text = "Nothing found, please try with a different search query")
+        Text(text = stringResource(R.string.nothing_found_please_try_with_a_different_search_query))
     }
 }
 

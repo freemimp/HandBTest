@@ -2,7 +2,7 @@ package com.freemimp.products.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.freemimp.products.domain.GetProductsUseCase
+import com.freemimp.products.domain.usecases.GetProductsUseCase
 import com.freemimp.products.domain.model.Product
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -69,9 +69,6 @@ sealed class ProductListState {
 }
 
 sealed interface UiEvent {
-    data class OnSearchTextChange(val searchQuery: String) : UiEvent {
-
-    }
-
+    data class OnSearchTextChange(val searchQuery: String) : UiEvent
     data class OnProductClicked(val product: Product) : UiEvent
 }

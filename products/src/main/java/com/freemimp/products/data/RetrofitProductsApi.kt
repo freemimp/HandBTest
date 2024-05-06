@@ -1,7 +1,6 @@
 package com.freemimp.products.data
 
 import com.freemimp.products.domain.model.Product
-import com.freemimp.products.domain.ProductsApi
 import javax.inject.Inject
 
 class RetrofitProductsApi @Inject constructor(private val productsService: ProductsService) :
@@ -23,7 +22,7 @@ class RetrofitProductsApi @Inject constructor(private val productsService: Produ
                     )
                 })
             } else {
-                Result.failure(Exception(response.message() ?: "Error"))
+                Result.failure(Throwable("api issues"))
             }
 
         } catch (e: Exception) {

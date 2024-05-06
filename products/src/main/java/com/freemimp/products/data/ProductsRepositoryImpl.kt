@@ -1,6 +1,5 @@
 package com.freemimp.products.data
 
-import com.freemimp.products.domain.ProductsApi
 import com.freemimp.products.domain.model.Product
 import com.freemimp.products.domain.repositories.ProductRepository
 import javax.inject.Inject

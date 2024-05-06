@@ -1,4 +1,4 @@
-package com.freemimp.products.domain
+package com.freemimp.products.domain.usecases
 
 import com.freemimp.products.domain.repositories.ProductRepository
 import com.freemimp.products.domain.model.Product
