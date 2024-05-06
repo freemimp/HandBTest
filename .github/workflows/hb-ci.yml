@@ -27,11 +27,6 @@ jobs:
     - name: Grant execute permission for gradlew
       run: chmod +x ./gradlew
 
-    - name: Run Gradle build
-      env:
-        BASEURL: ${{ secrets.BASEURL }}
-      run: ./gradlew build
-
     - name: Cache Gradle packages
       uses: actions/cache@v2
       with:
@@ -43,8 +38,17 @@ jobs:
           ${{ runner.os }}-gradle-
 
     - name: Run unit tests
+      env:
+        BASEURL: ${{ secrets.BASEURL }}
       run: ./gradlew products:testDebugUnitTest
       continue-on-error: true
 
     - name: Run lint
+      env:
+        BASEURL: ${{ secrets.BASEURL }}
       run: ./gradlew lintDebug
+
+    - name: Run assembleDebug
+      env:
+        BASEURL: ${{ secrets.BASEURL }}
+      run: ./gradlew assembleDebug
