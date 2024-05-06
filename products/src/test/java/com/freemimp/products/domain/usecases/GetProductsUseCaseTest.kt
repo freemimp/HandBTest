@@ -2,6 +2,7 @@ package com.freemimp.products.domain.usecases
 
 import com.freemimp.products.domain.model.Product
 import com.freemimp.products.domain.repositories.ProductRepository
+import com.freemimp.products.utils.TestException
 import io.mockk.clearAllMocks
 import io.mockk.coEvery
 import io.mockk.junit5.MockKExtension
@@ -39,11 +40,10 @@ class GetProductsUseCaseTest {
     @Test
     fun `given execute is invoked, when repository call is NOT successful, then return Result_failure with error`() {
         runTest {
-            val throwable = Throwable()
-            coEvery { repository.getProducts() } returns Result.failure(throwable)
+            coEvery { repository.getProducts() } returns Result.failure(TestException)
 
             val result = sut.execute()
-            val expected = Result.failure<List<Product>>(throwable)
+            val expected = Result.failure<List<Product>>(TestException)
 
             assertEquals(expected, result)
         }

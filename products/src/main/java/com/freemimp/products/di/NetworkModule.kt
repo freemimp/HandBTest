@@ -12,13 +12,12 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 
-
 @Module
 @InstallIn(ViewModelComponent::class)
 object NetworkModule {
 
     @Provides
-    fun provideMarvelService(
+    fun provideProductService(
         okHttpClient: OkHttpClient
     ): ProductsService {
         return Retrofit.Builder()

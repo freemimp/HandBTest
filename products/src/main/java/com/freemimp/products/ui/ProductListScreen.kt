@@ -38,6 +38,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.core.text.HtmlCompat
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -81,7 +82,10 @@ fun ProductListContent(
                         )
                     }
                 })
-            TopSearchSection(uiEvent)
+            if (state !is ProductListState.Error) {
+                TopSearchSection(uiEvent)
+            }
+
             when (state) {
                 is ProductListState.Loading -> LoadingSection()
                 is ProductListState.Error -> ErrorSection(
@@ -104,7 +108,9 @@ fun ProductListContent(
 private fun TopSearchSection(uiEvent: (UiEvent) -> Unit) {
     var text by remember { mutableStateOf("") }
     OutlinedTextField(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = Modifier
+            .fillMaxWidth()
+            .testTag(SEARCH_TEXT_TAG),
         leadingIcon = {
             Icon(
                 imageVector = Icons.Rounded.Search,
@@ -253,6 +259,7 @@ fun ErrorSection(modifier: Modifier, message: String) {
     Row(
         modifier = modifier
             .padding(16.dp)
+            .testTag(ERROR_TAG)
             .fillMaxSize(),
         horizontalArrangement = Arrangement.Center,
         verticalAlignment = Alignment.CenterVertically
@@ -266,6 +273,7 @@ fun EmptySearchSection(modifier: Modifier) {
     Row(
         modifier = modifier
             .padding(16.dp)
+            .testTag(EMPTY_SEARCH_TAG)
             .fillMaxSize(),
         horizontalArrangement = Arrangement.Center,
         verticalAlignment = Alignment.CenterVertically
@@ -274,4 +282,23 @@ fun EmptySearchSection(modifier: Modifier) {
     }
 }
 
+@Preview(showBackground = true)
+@Composable
+fun DefaultPreview() {
+    val products =
+        (1..20).map {
+            Product(
+                sku = "$it",
+                name = "Product $it",
+                price = "$0.00",
+                description = "Description$it",
+                brand = "Brand$it",
+            )
+        }
+    ProductListSection(products = products, uiEvent = {})
+}
+
 private const val LIST_ITEM_TAG = "listItemTag"
+private const val SEARCH_TEXT_TAG = "searchTextTag"
+private const val EMPTY_SEARCH_TAG = "emptySearchTag"
+private const val ERROR_TAG = "errorTag"

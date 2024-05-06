@@ -15,7 +15,7 @@ android {
         versionCode = 1
         versionName = "1.0"
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner = "com.freemimp.hbtest.HiltTestRunner"
         vectorDrawables {
             useSupportLibrary = true
         }
@@ -43,9 +43,18 @@ android {
     composeOptions {
         kotlinCompilerExtensionVersion = libs.versions.comoseCompilerVersion.get()
     }
+    testOptions {
+        packaging {
+            jniLibs {
+                useLegacyPackaging = true
+            }
+        }
+    }
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
+            excludes += "META-INF/LICENSE.md"
+            excludes += "META-INF/LICENSE-notice.md"
         }
     }
 }
@@ -66,10 +75,14 @@ dependencies {
     ksp(libs.hiltCodegen)
 
     testImplementation(libs.junit)
+    androidTestImplementation(libs.hilt.android.testing)
+    kspAndroidTest(libs.hiltCodegen)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.androidx.ui.test.junit4)
+    androidTestImplementation(libs.mockk.android)
+    androidTestUtil(libs.androidx.orchestrator)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 }

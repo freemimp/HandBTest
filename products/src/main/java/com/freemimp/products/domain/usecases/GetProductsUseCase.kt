@@ -6,6 +6,6 @@ import javax.inject.Inject
 
 class GetProductsUseCase @Inject constructor(private val repository: ProductRepository) {
     suspend fun execute(): Result<List<Product>> {
-       return repository.getProducts()
+        return repository.getProducts()
     }
 }

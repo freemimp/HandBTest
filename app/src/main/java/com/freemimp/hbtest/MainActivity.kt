@@ -17,7 +17,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             HBTestTheme {
-                 ProductListScreen()
+                ProductListScreen()
             }
         }
     }
@@ -27,6 +27,6 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun GreetingPreview() {
     HBTestTheme {
-       ProductListScreen()
+        ProductListScreen()
     }
 }

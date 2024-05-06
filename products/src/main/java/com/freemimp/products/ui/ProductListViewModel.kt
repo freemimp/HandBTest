@@ -2,6 +2,7 @@ package com.freemimp.products.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.freemimp.main.utils.safeGetOrThrow
 import com.freemimp.products.domain.usecases.GetProductsUseCase
 import com.freemimp.products.domain.model.Product
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -16,7 +17,7 @@ class ProductListViewModel @Inject constructor(private val getProductsUseCase: G
     private val _state = MutableStateFlow<ProductListState>(ProductListState.Loading)
     val state: StateFlow<ProductListState> = _state
 
-    private lateinit var cachedProducts: List<Product>
+    private var cachedProducts: List<Product> = emptyList()
 
     init {
         fetchProducts()
@@ -47,15 +48,13 @@ class ProductListViewModel @Inject constructor(private val getProductsUseCase: G
     private fun fetchProducts() {
         viewModelScope.launch {
             try {
-                val products: List<Product> = if (::cachedProducts.isInitialized.not()) {
-                    getProductsUseCase.execute().getOrThrow()
-                } else {
-                    cachedProducts
+                if (cachedProducts.isEmpty()) {
+                    val products = getProductsUseCase.execute().safeGetOrThrow()
+                    cachedProducts = products
                 }
-                cachedProducts = products
-                _state.value = ProductListState.Success(products)
-            } catch (e: Exception) {
-                _state.value = ProductListState.Error(e.toString())
+                _state.value = ProductListState.Success(cachedProducts)
+            } catch (throwable: Throwable) {
+                _state.value = ProductListState.Error(throwable.toString())
             }
         }
     }

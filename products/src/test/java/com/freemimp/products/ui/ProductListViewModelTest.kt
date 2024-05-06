@@ -4,6 +4,7 @@ import app.cash.turbine.test
 import com.freemimp.products.domain.model.Product
 import com.freemimp.products.domain.usecases.GetProductsUseCase
 import com.freemimp.products.utils.TestCoroutineExtension
+import com.freemimp.products.utils.TestException
 import io.mockk.clearAllMocks
 import io.mockk.coEvery
 import io.mockk.junit5.MockKExtension
@@ -49,16 +50,14 @@ class ProductListViewModelTest {
     }
 
     @Test
-    fun `given viewmodel created, when repository call is NOT successful, then state is Error with error message`() {
+    fun `given viewmodel created, when use case call is NOT successful, then state is Error with error message`() {
         runTest {
-            val message = "Test error"
-            val exception = Exception(message)
-            coEvery { getProductsUseCase.execute() } returns Result.failure(exception)
+            coEvery { getProductsUseCase.execute() } returns Result.failure(TestException)
 
             val sut = createSut()
 
             sut.state.test {
-                assertEquals(ProductListState.Error(exception.toString()), awaitItem())
+                assertEquals(ProductListState.Error(TestException.toString()), awaitItem())
             }
         }
     }

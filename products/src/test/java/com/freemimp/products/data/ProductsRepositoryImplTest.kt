@@ -2,6 +2,7 @@ package com.freemimp.products.data
 
 import com.freemimp.products.domain.model.Product
 import com.freemimp.products.domain.repositories.ProductRepository
+import com.freemimp.products.utils.TestException
 import io.mockk.clearAllMocks
 import io.mockk.coEvery
 import io.mockk.junit5.MockKExtension
@@ -38,11 +39,10 @@ class ProductsRepositoryImplTest {
     @Test
     fun `given getProducts is executed, when api call is NOT successful, then return Result_failure with error`() {
         runTest {
-            val throwable = Throwable()
-            coEvery { productsApi.getProducts() } returns Result.failure(throwable)
+            coEvery { productsApi.getProducts() } returns Result.failure(TestException)
 
             val result = sut.getProducts()
-            val expected = Result.failure<List<Product>>(throwable)
+            val expected = Result.failure<List<Product>>(TestException)
 
             assertEquals(expected, result)
         }
