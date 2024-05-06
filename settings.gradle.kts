@@ -22,4 +22,3 @@ dependencyResolutionManagement {
 rootProject.name = "H&BTest"
 include(":app")
 include(":products")
-include(":core")
