@@ -98,7 +98,7 @@ fun ProductListContent(
                     uiEvent = uiEvent
                 )
 
-                ProductListState.EmptySearch -> EmptySearchSection(modifier = Modifier)
+                ProductListState.EmptySearch -> NotFoundSection(modifier = Modifier)
             }
         }
     }
@@ -269,7 +269,7 @@ fun ErrorSection(modifier: Modifier, message: String) {
 }
 
 @Composable
-fun EmptySearchSection(modifier: Modifier) {
+fun NotFoundSection(modifier: Modifier) {
     Row(
         modifier = modifier
             .padding(16.dp)
