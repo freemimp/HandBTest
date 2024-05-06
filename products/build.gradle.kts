@@ -21,6 +21,8 @@ android {
         if (securePropsFile.exists()) {
             secureProps.load(FileInputStream(securePropsFile))
             buildConfigField("String", "baseUrl", secureProps.getProperty("baseUrl"))
+        } else {
+            buildConfigField("String", "baseUrl", System.getenv("BASEURL"))
         }
     }
 
